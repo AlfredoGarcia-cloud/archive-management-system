@@ -41,6 +41,8 @@ CREATE TABLE folders (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (parent_id) REFERENCES folders(id),
     FOREIGN KEY (created_by) REFERENCES users(id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES folders(id)
 );
 
 CREATE TABLE folder_permissions (
@@ -151,6 +153,7 @@ INSERT INTO permissions (permission_key, label) VALUES
 ('activity_log.read', 'Lihat log aktivitas'),
 ('user.manage', 'Kelola user'),
 ('share.manage', 'Kelola share file/folder');
+('activity_log.read', 'Lihat log aktivitas');
 
 INSERT INTO role_permissions (role_id, permission_id)
 SELECT 1, id FROM permissions;

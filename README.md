@@ -8,6 +8,7 @@ Sistem ini adalah kerangka **MVC sederhana** untuk archive/document management y
 - Sharing ala Google Drive (share folder/file ke user tertentu dengan hak akses read/create/update/delete).
 - Audit trail aktivitas user (CREATE/READ/UPDATE/DELETE/LOGIN/LOGOUT).
 - Manajemen user + aktif/nonaktif user.
+- Audit trail aktivitas user (CREATE/READ/UPDATE/DELETE/LOGIN/LOGOUT).
 - Manajemen folder arsip yang rapi (hierarki + path unik).
 - Kategori surat + ringkasan pembahasan surat.
 - Rekap penomoran surat dengan format pattern yang bisa dikustom.

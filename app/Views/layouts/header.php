@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 <div class="min-h-screen">
-  <nav class="bg-white border-b p-4 flex gap-4 flex-wrap">
+  <nav class="bg-white border-b p-4 flex gap-4">
     <a href="/dashboard">Dashboard</a>
     <a href="/folders">Folder</a>
     <a href="/archives">Arsip</a>

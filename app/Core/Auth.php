@@ -55,6 +55,7 @@ final class Auth
             return false;
         }
 
-        return (new Permission())->userCanAccessSharedArchive((int) $user['id'], $archiveId, $action);
+        return $permission->userCanAccessSharedArchive((int) $user['id'], $archiveId, $action)
+        || $permission->roleCanAccessArchive((int) $user['role_id'], $archiveId, $action);
     }
 }

@@ -26,6 +26,13 @@ final class ArchiveController extends Controller
             }
         }
 
+        if (!Auth::can('archive.read')) {
+            http_response_code(403);
+            echo 'Akses ditolak.';
+            return;
+        }
+
+        $archives = (new Archive())->all();
         $this->render('archives/index', ['title' => 'Arsip', 'archives' => $archives]);
     }
 }

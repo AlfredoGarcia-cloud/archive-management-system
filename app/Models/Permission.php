@@ -19,7 +19,13 @@ final class Permission
 
     public function roleCanAccessFolder(int $roleId, int $folderId, string $action): bool
     {
-        $map = ['read' => 'can_read', 'create' => 'can_create', 'update' => 'can_update', 'delete' => 'can_delete'];
+        $map = [
+            'read' => 'can_read',
+            'create' => 'can_create',
+            'update' => 'can_update',
+            'delete' => 'can_delete',
+        ];
+
         $column = $map[$action] ?? 'can_read';
 
         global $config;
