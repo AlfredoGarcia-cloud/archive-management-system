@@ -16,6 +16,8 @@
     <a href="/letter-numbers">Penomoran Surat</a>
     <a href="/categories">Kategori</a>
     <a href="/activity-logs">Log Aktivitas</a>
+    <a href="/shares">Share</a>
+    <a href="/users">Users</a>
     <a href="/logout" class="ml-auto text-red-600">Logout</a>
   </nav>
   <main class="p-6">

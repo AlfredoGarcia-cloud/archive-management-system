@@ -13,6 +13,7 @@ CREATE TABLE users (
     name VARCHAR(150) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
@@ -36,6 +37,10 @@ CREATE TABLE folders (
     name VARCHAR(150) NOT NULL,
     parent_id INT NULL,
     path VARCHAR(255) NOT NULL UNIQUE,
+    created_by INT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES folders(id),
+    FOREIGN KEY (created_by) REFERENCES users(id)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (parent_id) REFERENCES folders(id)
 );
@@ -73,6 +78,35 @@ CREATE TABLE archives (
     FOREIGN KEY (folder_id) REFERENCES folders(id),
     FOREIGN KEY (category_id) REFERENCES categories(id),
     FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+CREATE TABLE archive_shares (
+    archive_id INT NOT NULL,
+    user_id INT NOT NULL,
+    can_read TINYINT(1) DEFAULT 1,
+    can_update TINYINT(1) DEFAULT 0,
+    can_delete TINYINT(1) DEFAULT 0,
+    shared_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (archive_id, user_id),
+    FOREIGN KEY (archive_id) REFERENCES archives(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (shared_by) REFERENCES users(id)
+);
+
+CREATE TABLE folder_shares (
+    folder_id INT NOT NULL,
+    user_id INT NOT NULL,
+    can_read TINYINT(1) DEFAULT 1,
+    can_create TINYINT(1) DEFAULT 0,
+    can_update TINYINT(1) DEFAULT 0,
+    can_delete TINYINT(1) DEFAULT 0,
+    shared_by INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (folder_id, user_id),
+    FOREIGN KEY (folder_id) REFERENCES folders(id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (shared_by) REFERENCES users(id)
 );
 
 CREATE TABLE letter_number_formats (
@@ -116,6 +150,9 @@ INSERT INTO permissions (permission_key, label) VALUES
 ('archive.read', 'Lihat arsip'),
 ('letter_number.read', 'Lihat penomoran surat'),
 ('category.read', 'Lihat kategori'),
+('activity_log.read', 'Lihat log aktivitas'),
+('user.manage', 'Kelola user'),
+('share.manage', 'Kelola share file/folder');
 ('activity_log.read', 'Lihat log aktivitas');
 
 INSERT INTO role_permissions (role_id, permission_id)

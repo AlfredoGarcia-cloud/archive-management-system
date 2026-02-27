@@ -34,4 +34,28 @@ final class Permission
         $stmt->execute([$roleId, $folderId]);
         return (bool) $stmt->fetchColumn();
     }
+
+    public function userCanAccessSharedFolder(int $userId, int $folderId, string $action): bool
+    {
+        $map = ['read' => 'can_read', 'create' => 'can_create', 'update' => 'can_update', 'delete' => 'can_delete'];
+        $column = $map[$action] ?? 'can_read';
+
+        global $config;
+        $pdo = Database::connect($config['db']);
+        $stmt = $pdo->prepare("SELECT {$column} FROM folder_shares WHERE user_id = ? AND folder_id = ? LIMIT 1");
+        $stmt->execute([$userId, $folderId]);
+        return (bool) $stmt->fetchColumn();
+    }
+
+    public function userCanAccessSharedArchive(int $userId, int $archiveId, string $action): bool
+    {
+        $map = ['read' => 'can_read', 'update' => 'can_update', 'delete' => 'can_delete'];
+        $column = $map[$action] ?? 'can_read';
+
+        global $config;
+        $pdo = Database::connect($config['db']);
+        $stmt = $pdo->prepare("SELECT {$column} FROM archive_shares WHERE user_id = ? AND archive_id = ? LIMIT 1");
+        $stmt->execute([$userId, $archiveId]);
+        return (bool) $stmt->fetchColumn();
+    }
 }

@@ -5,6 +5,9 @@ Sistem ini adalah kerangka **MVC sederhana** untuk archive/document management y
 ## Fitur inti
 - MVC native PHP (tanpa framework berat) untuk menjaga aplikasi tetap sederhana.
 - RBAC (Role Based Access Control) berbasis permission + kontrol akses per-folder (`folder_permissions`).
+- Sharing ala Google Drive (share folder/file ke user tertentu dengan hak akses read/create/update/delete).
+- Audit trail aktivitas user (CREATE/READ/UPDATE/DELETE/LOGIN/LOGOUT).
+- Manajemen user + aktif/nonaktif user.
 - Audit trail aktivitas user (CREATE/READ/UPDATE/DELETE/LOGIN/LOGOUT).
 - Manajemen folder arsip yang rapi (hierarki + path unik).
 - Kategori surat + ringkasan pembahasan surat.

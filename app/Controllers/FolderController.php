@@ -37,7 +37,7 @@ final class FolderController extends Controller
         $parentId = !empty($_POST['parent_id']) ? (int) $_POST['parent_id'] : null;
         $path = trim($_POST['path'] ?? '');
 
-        $folderId = (new Folder())->create($name, $parentId, $path);
+        $folderId = (new Folder())->create($name, $parentId, $path, (int) $_SESSION['user']['id']);
         ActivityLogger::log((int) $_SESSION['user']['id'], 'create', 'folder', $folderId, 'Membuat folder: ' . $name);
 
         $_SESSION['success'] = 'Folder berhasil dibuat.';

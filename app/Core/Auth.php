@@ -43,6 +43,19 @@ final class Auth
             return false;
         }
 
-        return (new Permission())->roleCanAccessFolder((int) $user['role_id'], $folderId, $action);
+        $permission = new Permission();
+        return $permission->roleCanAccessFolder((int) $user['role_id'], $folderId, $action)
+            || $permission->userCanAccessSharedFolder((int) $user['id'], $folderId, $action);
+    }
+
+    public static function canAccessArchive(int $archiveId, string $action): bool
+    {
+        $user = self::user();
+        if (!$user) {
+            return false;
+        }
+
+        return $permission->userCanAccessSharedArchive((int) $user['id'], $archiveId, $action)
+        || $permission->roleCanAccessArchive((int) $user['role_id'], $archiveId, $action);
     }
 }

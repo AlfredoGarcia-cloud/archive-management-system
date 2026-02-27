@@ -25,6 +25,11 @@ final class AuthController extends Controller
             $this->redirect('/login');
         }
 
+        if ((int) $user['is_active'] !== 1) {
+            $_SESSION['error'] = 'Akun Anda nonaktif. Hubungi administrator.';
+            $this->redirect('/login');
+        }
+
         $_SESSION['user'] = [
             'id' => $user['id'],
             'name' => $user['name'],
